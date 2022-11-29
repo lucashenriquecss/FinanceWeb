@@ -4,6 +4,9 @@ from .models import *
 import csv
 import io
 from datetime import datetime
+
+
+
 def save_data(data):
     #salvar os dados no banco
     aux = []
@@ -31,7 +34,8 @@ def save_data(data):
 
 
 
-def index(request):
+def importcsv(request):
+    dados = Transacao.objects.all()
     if request.method == 'POST' and request.FILES['myfile']:
         myfile =  request.FILES['myfile']
        #lendo o arquivo
@@ -40,6 +44,7 @@ def index(request):
         #gerando uma lista
         data = [line for line in re]
         save_data(data)
-        print(data)
-        return redirect('index')
-    return render(request,'index.html')
+        #print(data)
+        return redirect('importcsv')
+    return render(request,'pages/dashboard/importarcsv.html',{'dados':dados})
+

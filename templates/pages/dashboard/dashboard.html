@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+{% include 'partials/_header.html' %}
+{% include 'partials/_sidebar.html' %}
+
+<!-- Vendor JS Files -->
+<main id="main" class="main">
+
+    <div class="pagetitle">
+        <h1>Dashboard</h1>
+        <nav>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{% url 'dashboard' %}">Home</a></li>
+                <li class="breadcrumb-item active">Dashboard</li>
+            </ol>
+        </nav>
+    </div><!-- End Page Title -->
+
+</main><!-- End #main -->
+{% include 'partials/_footer.html' %}
+
+
+
+{% endblock %}

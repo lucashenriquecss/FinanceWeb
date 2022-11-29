@@ -5,18 +5,33 @@
 
     <ul class="sidebar-nav" id="sidebar-nav">
         <li class="nav-item">
-            <a class="nav-link " href="index.html">
+            <a class="nav-link " href="{% url 'dashboard' %}">
                 <i class="bi bi-grid"></i>
                 <span>Dashboard</span>
             </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link " href="index.html">
+            <a class="nav-link " href="{% url 'importcsv' %}">
                 <i class="bi bi-grid"></i>
                 <span>Importar transações</span>
             </a>
-        </li><!-- End Dashboard Nav -->
-    </ul>    
-       
+        </li>
+        {% if user.is_superuser %}
+        <li class="nav-item">
+            <a class="nav-link " href="{% url 'registro' %}">
+                <i class="bi bi-grid"></i>
+                <span>Criar Usuário</span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link " href="{% url 'importcsv' %}">
+                <i class="bi bi-grid"></i>
+                <span>Usuários</span>
+            </a>
+        </li>
+        {% endif %}
+        <!-- End Dashboard Nav -->
+    </ul>
+
 
 </aside><!-- End Sidebar-->
