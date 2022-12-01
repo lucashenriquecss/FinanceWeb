@@ -1,53 +1,45 @@
-from django.shortcuts import render, redirect
-from django.contrib import auth, messages
-# Create your views here.
+
+from django.shortcuts import render, redirect,HttpResponse
 from django.contrib.auth.models import User
+from django.contrib.auth import authenticate,login
+from django.contrib.auth.decorators import login_required
+from django.contrib import messages,auth
 
 
-def index(request):
-    return render(request, 'index.html')
 
 
+@login_required(login_url='login')
 def dashboard(request):
-    return render(request, 'pages/dashboard/dashboard.html')
-# Usuario
-
+    """#verificar se usuario esta logado"""
+    if request.user.is_authenticated:           
+        return render(request, 'pages/dashboard/dashboard.html',)   
+    else:
+        return redirect('login')
+    
 
 def login(request):
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        password = request.POST.get('password') 
+        user = authenticate(request,username=username,password=password)
+        if user is not None:
+            auth.login(request,user)
+            return redirect('dashboard')
+           
     return render(request, 'pages/user/login.html')
 
 
+@login_required(login_url='login')
 def registro(request):
-    """CADASTRA UMA NOVA PESSOA NO SISTEMA"""
     if request.method == 'POST':
-        nome = request.POST['nome']
-        email = request.POST['email']
-
-        if campo_vazio(nome):  # verificação para evitar campos em branco ou com espaços
-            messages.error(request, 'O nome não pode ficar em branco.')
-            return redirect('cadastro')
-
-        if campo_vazio(email):
-            messages.error(request, ' O e-mail não pode ficar em branco')
-            return redirect('cadastro')
-        if User.objects.filter(email=email).exists():
-            messages.warning(request, 'Está conta ja existe, tente outra!')
-            # verificando email se ja esta criado ou nao
-            return redirect('cadastro')
-
-        if User.objects.filter(username=nome).exists():
-            messages.warning(request, 'Está conta ja existe, tente outra!')
-            # verificando nome se ja esta criado ou nao
-            return redirect('cadastro')
-
-        user = User.objects.create_user(
-            username=nome, email=email)
+        name = request.POST.get('name')
+        email = request.POST.get('email')
+        password = request.POST.get('password')
+        user = User.objects.create_user(name,email,password)
         user.save()
         messages.success(request, 'Conta criada com sucesso!')
-        return redirect('login')
-    else:
-        return render(request, 'pages/user/cadastro.html')
+        redirect('dashboard')
+    return render(request, 'pages/user/cadastro.html')
 
 
-def campo_vazio(campo):
-    return not campo.strip()
+    

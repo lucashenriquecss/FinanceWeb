@@ -1,6 +1,7 @@
 from django.db import models
 from datetime import datetime
 # Create your models here.
+from django.contrib.auth.models import User
 
 class Transacao(models.Model):
     bancoorigem = models.CharField(max_length=100, blank=False)

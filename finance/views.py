@@ -1,9 +1,12 @@
 from django.shortcuts import render,redirect 
 from .models import *
+from django.contrib import auth, messages
 # Create your views here.
 import csv
 import io
 from datetime import datetime
+from django.contrib.auth.decorators import login_required
+
 
 
 
@@ -33,7 +36,7 @@ def save_data(data):
     Transacao.objects.bulk_create(aux)
 
 
-
+@login_required(login_url='login')
 def importcsv(request):
     dados = Transacao.objects.all()
     if request.method == 'POST' and request.FILES['myfile']:
