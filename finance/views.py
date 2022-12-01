@@ -51,3 +51,7 @@ def importcsv(request):
         return redirect('importcsv')
     return render(request,'pages/dashboard/importarcsv.html',{'dados':dados})
 
+def users_list(request):
+    users = User.objects.all()
+    return render(request, 'pages/dashboard/users.html',{'users':users})
+

@@ -38,8 +38,10 @@ def registro(request):
         user = User.objects.create_user(name,email,password)
         user.save()
         messages.success(request, 'Conta criada com sucesso!')
-        redirect('dashboard')
+        redirect('users_list')
     return render(request, 'pages/user/cadastro.html')
 
 
-    
+def logout(request): 
+    auth.logout(request)#saida do usuario
+    return redirect('login')   

@@ -1,11 +1,8 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block content %}
-
 {% include 'partials/_header.html' %}
 {% include 'partials/_sidebar.html' %}
-
-
 <main id="main" class="main">
 
     <div class="pagetitle">
@@ -20,55 +17,37 @@
 
     <section class="section dashboard min-vh-10 d-flex flex-column align-items-center justify-content-center">
         <div class="col-lg-8">
-            <div class="card">
-                <div class="card-body">
-                    <h5 class="card-title">Importar transações</h5>
-                    <!-- General Form Elements -->
-                    <form action="" enctype="multipart/form-data" method="post">
-                        {% csrf_token %}
-                        <div class="row mb-3">
-                            <div class="col-sm-10">
-                                <input class="form-control" type="file" id="formFile" name="myfile">
-                                <div class="invalid-feedback">Please enter file.</div>
-                            </div>
-                        </div>
-                        <div class="row mb-3">
-                            <div class="col-sm-10">
-                                <button type="submit" class="btn btn-primary">Importar</button>
-                            </div>
-                        </div>
-
-                    </form><!-- End General Form Elements -->
-                </div>
-            </div>
-        </div>
-        <div class="col-lg-12">
+            <a href="{% url 'registro' %}"><button type="submit" class="btn btn-primary">Novo</button></a>
             <div class="card">
                 <div class="card-body">
                     <h5 class="card-title">Importações Realizadas</h5>
-    
+                    
                     <!-- Table with stripped rows -->
                     <table class="table">
                         <thead>
                             <tr>
-                                <th scope="col">Data transações</th>
-                                <th scope="col">Data Importação</th>
+                                <th scope="col">ID</th>
+                                <th scope="col">Nome</th>
+                                <th scope="col">E-mail</th>
+                                <th scope="col">Opções</th>
                             </tr>
                         </thead>
-                        {% if dados %}
-                        {% for dado in dados %}
+                        {% if users %}
+                        {% for user in users %}
                         <tbody>
                             <tr>
-                                <td>{{ dado.data }}</td>
-                                <td>{{ dado.impor }}</td>
+                                <td>{{ user.id }}</td>
+                                <td>{{ user.username }}</td>
+                                <td>{{ user.email }}</td>
+                                <td><button type="submit" class="btn btn-primary">Editar</button><button type="submit" class="btn btn-danger">Remover</button></td>
                             </tr>
-    
+                            
                         </tbody>
                         {% endfor %}
                         {% endif %}
                     </table>
                     <!-- End Table with stripped rows -->
-    
+
                 </div>
             </div>
         </div>
@@ -77,6 +56,4 @@
 </main><!-- End #main -->
 
 {% include 'partials/_footer.html' %}
-
-
 {% endblock %}
