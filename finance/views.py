@@ -1,4 +1,4 @@
-from django.shortcuts import render,redirect 
+from django.shortcuts import render,redirect,get_object_or_404
 from .models import *
 from django.contrib import auth, messages
 # Create your views here.
@@ -51,6 +51,22 @@ def importcsv(request):
         return redirect('importcsv')
     return render(request,'pages/dashboard/importarcsv.html',{'dados':dados})
 
+def detail_transacoes(request):
+    info = get_object_or_404(Transacao,pk=id)
+    return render(request,'pages/dashboard/detail-transacao.html',{'info':info})
+#USERS
+@login_required(login_url='login')
+def detailUser(request, id):
+    info = get_object_or_404(User,pk=id)
+    return render(request,'pages/dashboard/profile.html',{'info':info})
+
+@login_required(login_url='login')
+def removeUser(request,id):
+    user = User.objects.get(pk=id)
+    user.delete()
+    return redirect('users_list')
+    
+@login_required(login_url='login')    
 def users_list(request):
     users = User.objects.all()
     return render(request, 'pages/dashboard/users.html',{'users':users})

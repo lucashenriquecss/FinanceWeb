@@ -15,8 +15,11 @@ def dashboard(request):
         return render(request, 'pages/dashboard/dashboard.html',)   
     else:
         return redirect('login')
-    
 
+
+   
+    
+#USER
 def login(request):
     if request.method == 'POST':
         username = request.POST.get('username')

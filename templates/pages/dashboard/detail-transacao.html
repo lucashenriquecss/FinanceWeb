@@ -1,0 +1,100 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+{% include 'partials/_header.html' %}
+{% include 'partials/_sidebar.html' %}
+
+
+<main id="main" class="main">
+
+    <div class="pagetitle">
+        <h1>Dashboard</h1>
+        <nav>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{% url 'importcsv' %}">Transações</a></li>
+                <li class="breadcrumb-item active">Detalhes Transações</li>
+            </ol>
+        </nav>
+    </div><!-- End Page Title -->
+
+    <section class="section dashboard min-vh-10 d-flex flex-column align-items-center justify-content-center">
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Detalhes da importação</h5>
+
+                    <!-- Table with stripped rows -->
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">Importado em</th>
+                                <th scope="col">Importado por</th>
+                                <th scope="col">Data da transação</th>
+                            </tr>
+                        </thead>
+                        {% if dados %}
+                        {% for dado in dados %}
+                        <tbody>
+                            <tr>
+                                <td>{{ dado.data }}</td>
+                                <td>{{ dado.impor }}</td>
+                                <td><a href="" class="btn btn-primary" role="button">Detalhar</a></td>
+                            </tr>
+
+                        </tbody>
+                        {% endfor %}
+                        {% endif %}
+                    </table>
+                    <!-- End Table with stripped rows -->
+
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="section dashboard min-vh-10 d-flex flex-column align-items-center justify-content-center">
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Transações Importadas</h5>
+
+                    <!-- Table with stripped rows -->
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">Banco</th>
+                                <th scope="col">Agência</th>
+                                <th scope="col">Conta</th>
+                                <th scope="col">Banco destino</th>
+                                <th scope="col">Agência destino</th>
+                                <th scope="col">Conta destino</th>
+                                <th scope="col">Valor</th>
+                            </tr>
+                        </thead>
+                        
+                        <tbody>
+                            <tr>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                
+                            </tr>
+
+                        </tbody>
+                        
+                    </table>
+                    <!-- End Table with stripped rows -->
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+</main><!-- End #main -->
+
+{% include 'partials/_footer.html' %}
+{% endblock %}

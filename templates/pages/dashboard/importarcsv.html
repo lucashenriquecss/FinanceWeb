@@ -5,7 +5,6 @@
 {% include 'partials/_header.html' %}
 {% include 'partials/_sidebar.html' %}
 
-
 <main id="main" class="main">
 
     <div class="pagetitle">
@@ -13,7 +12,7 @@
         <nav>
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="{% url 'dashboard' %}">Home</a></li>
-                <li class="breadcrumb-item active">Importar Transações</li>
+                <li class="breadcrumb-item active">Detalhes</li>
             </ol>
         </nav>
     </div><!-- End Page Title -->
@@ -53,14 +52,18 @@
                             <tr>
                                 <th scope="col">Data transações</th>
                                 <th scope="col">Data Importação</th>
+                                <th scope="col">Opções</th>
                             </tr>
                         </thead>
                         {% if dados %}
                         {% for dado in dados %}
                         <tbody>
                             <tr>
-                                <td>{{ dado.data }}</td>
+                                <td>{{ dado.data|date:'d-M-Y' }}</td>
                                 <td>{{ dado.impor }}</td>
+                                
+                                <td><a href="/finance/datail_transacoes/{{dado.id}}" class="btn btn-primary"
+                                    role="button">Detalhar</a></td>
                             </tr>
     
                         </tbody>

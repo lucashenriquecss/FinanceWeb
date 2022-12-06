@@ -10,7 +10,7 @@
         <nav>
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="{% url 'dashboard' %}">Home</a></li>
-                <li class="breadcrumb-item active">Importar Transações</li>
+                <li class="breadcrumb-item active">User List</li>
             </ol>
         </nav>
     </div><!-- End Page Title -->
@@ -20,8 +20,8 @@
             <a href="{% url 'registro' %}"><button type="submit" class="btn btn-primary">Novo</button></a>
             <div class="card">
                 <div class="card-body">
-                    <h5 class="card-title">Importações Realizadas</h5>
-                    
+                    <h5 class="card-title">Usuários</h5>
+
                     <!-- Table with stripped rows -->
                     <table class="table">
                         <thead>
@@ -34,15 +34,21 @@
                         </thead>
                         {% if users %}
                         {% for user in users %}
+                        {% if not user.is_superuser %}
                         <tbody>
                             <tr>
                                 <td>{{ user.id }}</td>
                                 <td>{{ user.username }}</td>
                                 <td>{{ user.email }}</td>
-                                <td><button type="submit" class="btn btn-primary">Editar</button><button type="submit" class="btn btn-danger">Remover</button></td>
+                                <td><a href="/finance/detailUser/{{user.id}}" class="btn btn-primary"
+                                        role="button">Visualizar</a>
+                                        
+                                        <a href="/finance/removeUser/{{user.id}}"
+                                        class="btn btn-danger" role="button">Remover</a></td>
                             </tr>
-                            
+
                         </tbody>
+                        {% endif %}
                         {% endfor %}
                         {% endif %}
                     </table>
