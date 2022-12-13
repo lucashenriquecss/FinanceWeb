@@ -9,7 +9,6 @@ from django.contrib.auth.decorators import login_required
 
 
 
-
 def save_data(data):
     #salvar os dados no banco
     aux = []
@@ -38,7 +37,10 @@ def save_data(data):
 
 @login_required(login_url='login')
 def importcsv(request):
+  
     dados = Transacao.objects.all()
+    
+ 
     if request.method == 'POST' and request.FILES['myfile']:
         myfile =  request.FILES['myfile']
        #lendo o arquivo
@@ -47,13 +49,23 @@ def importcsv(request):
         #gerando uma lista
         data = [line for line in re]
         save_data(data)
-        #print(data)
         return redirect('importcsv')
     return render(request,'pages/dashboard/importarcsv.html',{'dados':dados})
 
-def detail_transacoes(request):
-    info = get_object_or_404(Transacao,pk=id)
-    return render(request,'pages/dashboard/detail-transacao.html',{'info':info})
+    
+@login_required(login_url='login')
+def historic(request):
+    dados = Transacao.objects.all()
+    return render(request,'pages/dashboard/historic.html',{'dados':dados})
+@login_required(login_url='login')
+def detail_transacoes(request,id):
+    infos = Transacao.objects.get(pk=id)
+    return render(request,'pages/dashboard/detail-transacao.html',{'infos':infos})
+
+
+
+
+
 #USERS
 @login_required(login_url='login')
 def detailUser(request, id):
