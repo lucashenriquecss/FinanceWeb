@@ -55,8 +55,10 @@ def importcsv(request):
     
 @login_required(login_url='login')
 def historic(request):
-    dados = Transacao.objects.all()
+    dados = Transacao.objects.order_by('data').distinct('data')
     return render(request,'pages/dashboard/historic.html',{'dados':dados})
+
+
 @login_required(login_url='login')
 def detail_transacoes(request,id):
     infos = Transacao.objects.get(pk=id)
